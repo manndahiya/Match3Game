@@ -157,6 +157,35 @@ public class SwipeController : MonoBehaviour
         }
         yield return new WaitForSeconds(0.1f);
 
+          // Check for matches
+        if (otherBall != null)
+        {
+
+            if (!isMatched && !otherBall.GetComponent<SwipeController>().isMatched)
+            {
+                // Reset elapsed time for smooth revert
+                elapsedTime = 0f;
+
+
+                // Lerp back to the original positions
+                while (elapsedTime < moveDuration)
+                {
+                    ball1.transform.position = Vector2.Lerp(targetPosition1, startPosition1, elapsedTime / moveDuration);
+                    ball2.transform.position = Vector2.Lerp(targetPosition2, startPosition2, elapsedTime / moveDuration);
+                    elapsedTime += Time.deltaTime;
+                    yield return null; // Wait for the next frame
+                }
+
+                // Ensure final positions after revert
+                ball1.transform.position = startPosition1;
+                ball2.transform.position = startPosition2;
+
+                // Update grid positions
+                otherBall.GetComponent<GridItem>().row = this.grid.row;
+                otherBall.GetComponent<GridItem>().column = this.grid.column;
+                grid.row = previousRow;
+                grid.column = previousColumn;
+
       
        
     }

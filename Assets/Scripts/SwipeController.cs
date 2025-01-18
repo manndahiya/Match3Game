@@ -185,7 +185,9 @@ public class SwipeController : MonoBehaviour
                 otherBall.GetComponent<GridItem>().column = this.grid.column;
                 grid.row = previousRow;
                 grid.column = previousColumn;
+            }
 
+        }
       
        
     }
